@@ -27,6 +27,7 @@ Fonts:
 body {
   background-color: #f4f8fb; /* Soft light blue for a fresh look */
   font-family: 'Avenir', 'Proxima Nova', Arial, sans-serif;
+  font-weight: 400; 
   margin: 0;
   padding: 0;
   color: #222;

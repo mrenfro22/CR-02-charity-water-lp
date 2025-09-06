@@ -1,47 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Charity Water Landing Page</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>charity: water — Join the cause</title>
+  <!-- Google Fonts: Montserrat ; Currently on windows and other two fonts are unavaliable -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+
+
+  <style>
+    :root{
+      /* Brand palette (tweak to match your exact hex codes) */
+      --brand-blue: #77A8BB;   /* hero panel background */
+      --brand-gold: #FFC907;   /* highlight + buttons */
+      --ink: #1a1a1a;          /* primary text */
+      --ink-soft: #CBCCD1;     /* supporting text on blue */
+      --paper: #FFF7E1;        /* page background */
+      --card: #f8f6f1;         /* donation card bg (warm off-white) */
+      --input: #FFF7E1;        /* input background */
+      --radius: 18px;
+      --radius-lg: 22px;
+    }
+
+    /* Basic reset */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Work Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* Top brand bar */
+    .site-bar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      position: sticky; top: 0; background: #ffffff; z-index: 5;
+    }
+    .brand{
+      display:flex; align-items:center; gap:1px;
+      font-weight: 400; letter-spacing: 0.2px;
+    }
+    .brand img{ width: 28px; height: 28px; }
+
+    .brand span {
+      font-family: "Libre Baskerville", "Baskerville", serif;
+    }
+
+
+
+    .burger{
+      width: 28px; height: 22px; display:inline-flex; flex-direction:column; justify-content:space-between;
+    }
+    .burger span{
+      display:block; height:3px; border-radius:3px; background:#222;
+    }
+
+    /* Hero layout */
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+      /* min-height: clamp(520px, 70vh, 820px); */
+    }
+    .hero > * { min-width: 0;}
+    .hero-media{
+      margin: 0;
+      /* position: relative;
+      overflow: hidden;
+      width:100%; 
+      height:100%; */
+    }
+
+    .hero-media img{
+      display: block; width:100%; height:100%; object-fit: cover; object-position: center;
+    }
+
+    .hero-panel{
+      background: var(--brand-blue);
+      color: #fff;
+      padding: clamp(20px, 5vw, 56px);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .hero-inner{ max-width: 700px; width: 100%; }
+
+    /* Headline + emphasis */
+    .eyebrow{ 
+      font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+      opacity: .9; margin-bottom: 8px; display:none; /* toggle if you want an eyebrow */
+    }
+    h1{
+      font-size: clamp(28px, 4.6vw, 54px);
+      line-height: 1.15;
+      margin: 0 0 16px;
+      color: #eaf3f6; /* slightly off-white against blue */
+      font-weight: 500;
+    }
+    .hl{ color: var(--brand-gold); }
+
+    p.lede{
+      margin: 0 0 24px;
+      font-size: clamp(16px, 1.5vw, 20px);
+      color: #f4fbff;
+    }
+    .lede .linkish{
+      color: #ffffff; font-weight: 500;
+      border-bottom: 2px solid rgba(255,255,255,0.5);
+      padding-bottom: 1px;
+    }
+    .lede .hl{ color: var(--brand-gold); font-weight: 500; }
+
+    /* Donation card */
+    .donation-card{
+      background: var(--card);
+      color: #1c1c1c;
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 2px 0 rgba(0,0,0,0.04), 0 10px 24px rgba(0,0,0,0.08);
+      max-width: 640px;
+    }
+    .donation-card p{
+      margin: 0 0 14px;
+      font-weight: 350;
+      color: #1b2a30;
+      text-align: center;
+    }
+
+    .donation-form{
+      display:flex; 
+      align-items: center;
+      justify-content: space-between;
+      background: #e6e1da;
+      padding: 12px;
+      border-radius: 14px;
+      margin-bottom: 15px;
+      gap: 12px;
+    }
+    .donation-form label {
+      position: static;   /* remove absolute positioning */
+      font-size: 14px;
+      font-weight: 700;
+      color: #333;
+      margin: 0;
+      white-space: nowrap; /* keeps label on one line */
+    }
+
+    .donation-form input[type="text"] {
+      flex: 1;             /* input takes remaining space */
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      background: var(#cbccd1);
+      font-size: 16px;
+      outline: none;
+    }
+    .donation-form .cta {
+      width: 100%;
+      text-align: center;
+    }
+    .field{
+      position: relative;
+    }
+    label{
+      position: absolute; left: 14px; top: -10px; background: #e6e1da; padding: 0 6px;
+      font-size: 12px; color: #4a4a4a; border-radius: 6px;
+    }
+    input[type="text"]{
+      width: 100%;
+      padding: 14px 14px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      background: var(--input);
+      font-size: 16px;
+      outline: none;
+    }
+    input[type="text"]:focus{
+      border-color: #9bbace;
+      background: #fff;
+    }
+
+    .cta{
+      display:inline-block;
+      text-align:center;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: var(--brand-gold);
+      color: #1b1704;
+      font-weight: 700;
+      border: 3px solid #e0b326;
+      transition: transform .04s ease-in-out, box-shadow .1s ease;
+      box-shadow: 0 2px 0 rgba(0,0,0,0.05);
+      margin: 0 auto;
+      display: block;
+      width: fit-content;
+    }
+    .cta:focus, .cta:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Footer teaser (optional placeholder) */
+    footer{
+      padding: 32px 20px;
+      color: #5b6a72;
+      text-align:center;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; }
+      .hero-panel{ order: 2; }
+      .hero-media{ order: 1; height: 48vh; min-height: 360px; }
+      .donation-form{ grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Hero Section: This is the main banner at the top of the page -->
-    <section class="hero">
-        <!-- Main headline -->
-        <h1>Clean Water for Everyone</h1>
-        <!-- Subheadline -->
-        <p>Join us in bringing safe, clean water to communities in need.</p>
-    </section>
 
-    <!-- Story Section: This tells the story of the nonprofit -->
-    <section class="story">
-        <h2>Our Story</h2>
-        <p>
-         
-    </section>
+  <!-- Header / brand bar -->
+  <header class="site-bar" aria-label="Site header">
+    <div class="brand">
+      <!-- Replace with your actual logo -->
+      <img src="img/water-can-transparent.png" alt="charity: water logo" />
+      <span>Charity: Water</span>
+    </div>
 
-    <!-- Real-World Impact Story Section -->
-    <section class="impact-story">
-        <!-- Section headline -->
-        <h2>Real Impact: Meet Amina</h2>
-        <!-- Container for image and text -->
-        <div class="impact-content">
-            <!-- Impact image -->
-            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" alt="Amina smiling with clean water" class="impact-image">
-            <!-- Impact story text -->
-            <p>
-                Amina used to walk miles every day to collect water for her family. Thanks to your support, her village now has a clean water well. Amina can go to school and her family is healthier and happier.
-            </p>
+    <!-- Decorative hamburger (no JS) -->
+    <button class="burger" aria-label="Open menu" title="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Hero -->
+  <main class="hero" role="main">
+    <figure class="hero-media" aria-label="Community member carrying water">
+      <img src="img/4898_Ethiopia_2019_CG-.jpg" alt="Smiling woman carrying water jerrycans in a rural landscape">
+    </figure>
+
+    <section class="hero-panel">
+      <div class="hero-inner">
+        <h1>
+          <span class="hl">Together</span>, this<br>
+          generation can end the<br>
+          <span class="hl">water crisis.</span>
+        </h1>
+
+
+        <p class="lede">
+          Turn your <span class="hl">activism into action</span> and bring <span class="hl">safe water</span> to communities worldwide.
+        </p>
+
+
+        <div class="donation-card" role="region" aria-label="Donation">
+          <p> 
+            <strong>Clear, as it should be: 100% of your donation directly funds clean <br> water projects and helps communities in need.</strong>
+          </p>
+
+          <div class="donation-form" action="#" method="get" aria-label="Enter a custom donation amount">
+            <!-- <div class="field"> -->
+              <label for="amount">Enter custom amount:</label>
+              <input id="amount" name="amount" type="text" inputmode="decimal" placeholder="$0.00" aria-describedby="amountHelp" />
+            <!-- </div> -->
+          </div>
+
+            <a class="cta" href="#" role="button" aria-label="Join the cause">
+              Join the cause
+            </a>
+          </div>
+          
         </div>
+      </div>
     </section>
+  </main>
 
-    <!-- Call-to-Action Section: This encourages visitors to take action -->
-    <section class="call-to-action">
-        <h2>Make a Difference</h2>
-        <p>Your support can help save lives. Every donation brings us closer to a world with clean water for all.</p>
-        <a href="#" class="donate-button">Donate Now</a>
-    </section>
+  <!-- <footer>
+    <small>© charity: water • Replace placeholder images with your own assets.</small>
+  </footer>  -->
+
 </body>
 </html>

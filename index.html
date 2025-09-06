@@ -18,7 +18,7 @@
       --ink: #1a1a1a;          /* primary text */
       --ink-soft: #CBCCD1;     /* supporting text on blue */
       --paper: #FFF7E1;        /* page background */
-      --card: #f8f6f1;         /* donation card bg (warm off-white) */
+      --card: #FFF7E1;         /* donation card bg (warm off-white) */
       --input: #FFF7E1;        /* input background */
       --radius: 18px;
       --radius-lg: 22px;
@@ -104,6 +104,10 @@
       font-weight: 500;
     }
     .hl{ color: var(--brand-gold); }
+    .cream-text {
+      color: #FFF7E1;   /* cream white */
+      font-weight: inherit; /* keeps same weight as parent */
+    }
 
     p.lede{
       margin: 0 0 24px;
@@ -247,14 +251,13 @@
     <section class="hero-panel">
       <div class="hero-inner">
         <h1>
-          <span class="hl">Together</span>, this<br>
-          generation can end the<br>
-          <span class="hl">water crisis.</span>
+          <span class="hl">Together</span><span class="cream-text">, this <br> generation can </span> 
+          <span class="hl"> end the <br> water crisis.</span>
         </h1>
 
 
         <p class="lede">
-          Turn your <span class="hl">activism into action</span> and bring <span class="hl">safe water</span> to communities worldwide.
+          <span class="cream-text">Turn your</span> <span class="hl">activism into action</span> <span class="cream-text">and bring</span> <span class="hl">safe water</span> <span class="cream-text">to communities worldwide.</span>
         </p>
 
 
